@@ -17,7 +17,7 @@ COPY contract.sol .
 RUN solc --abi contract.sol|tail -1 > contract.abi
 RUN solc --bin contract.sol|tail -1 > contract.bin
 COPY publish.js .
-RUN nodejs publish.js
+CMD nodejs publish.js
 
 
 #CMD ["ls -l"]

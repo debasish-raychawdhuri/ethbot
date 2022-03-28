@@ -7,7 +7,7 @@ RUN wget https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.10.16
 RUN tar -xzf geth-linux-amd64-1.10.16-20356e57.tar.gz
 RUN mv geth-linux-amd64-1.10.16-20356e57 geth
 WORKDIR geth
-COPY genesis-block.json .
+COPY server/genesis-block.json .
 RUN chmod +x geth
 RUN mkdir gethdir
 COPY static-nodes.json gethdir/static-nodes.json
