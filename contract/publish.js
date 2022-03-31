@@ -9,7 +9,7 @@ async function main(){
 	const contractpk = "0x1554eA16e67C1838d592287BBAdC2797E28d246f"
 	const contractsk = "091b906cf6081edc43a7cf2fa06cc5a4013f1ddd1f9a2db5979e371d2ba57aa6"
 	const abi = JSON.parse(fs.readFileSync("contract.abi").toString());
-	const bin = fs.readFileSync("contract.bin").toString();
+	const bin = fs.readFileSync("contract.bin").toString().trim();
 	console.log(abi);
 	console.log(bin);
 	const account = web3.eth.accounts.privateKeyToAccount(miningsk);
@@ -20,7 +20,7 @@ async function main(){
     			console.log(web3.utils.fromWei(result, "ether") + " ETH")
   		}
 	});
-	const deploy = async () => {
+	const transferFunds = async () => {
 		console.log(
 			`Attempting to make transaction from ${miningpk} to ${contractpk}`
 		);
@@ -42,6 +42,30 @@ async function main(){
 			`Transaction successful with hash: ${createReceipt.transactionHash}`
 		);
 	};
+	transferFunds();
+
+	const deploy = async() => {
+
+    		console.log('Attempting to deploy from account:', contractpk);
+   		const incrementer = new web3.eth.Contract(abi);
+
+    		const incrementerTx = incrementer.deploy({
+        		data: "0x"+bin,
+        		// arguments: [],
+    		})
+    		const createTransaction = await web3.eth.accounts.signTransaction({
+            			from: contractpk,
+            			data: incrementerTx.encodeABI(),
+            			gas: 3000000,
+        		},
+        		contractsk
+    		)
+    		const createReceipt = web3.eth.sendSignedTransaction(createTransaction.rawTransaction).then((res) => {
+        		console.log('Contract deployed at address', res.contractAddress);
+    		});
+	};
 	deploy();
+
+
 }
 main();
