@@ -8,10 +8,20 @@ async function main(){
 	const miningsk = "e34d067941d21d45e7c3a91cb785725c4b18e65100a5486e716347ffb8cf893f"
 	const contractpk = "0x1554eA16e67C1838d592287BBAdC2797E28d246f"
 	const contractsk = "091b906cf6081edc43a7cf2fa06cc5a4013f1ddd1f9a2db5979e371d2ba57aa6"
-	const abi = JSON.parse(fs.readFileSync("contract.abi").toString());
+	const abiStr =  fs.readFileSync("contract.abi").toString();
+	const abi = JSON.parse(abiStr);
 	const bin = fs.readFileSync("contract.bin").toString().trim();
 	console.log(abi);
 	console.log(bin);
+
+	fs.writeFile('/volume/contract.abi', abiStr, function (err,data) {
+        	if (err) {
+                	return console.log(err);
+                }
+                console.log(data);
+        });
+
+
 	const account = web3.eth.accounts.privateKeyToAccount(miningsk);
 	web3.eth.getBalance(miningpk, function(err, result) {
   		if (err) {
