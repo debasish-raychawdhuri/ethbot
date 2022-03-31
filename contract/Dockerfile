@@ -13,6 +13,7 @@ RUN  add-apt-repository -y ppa:ethereum/ethereum \
 
 RUN npm install ethereumjs-tx
 RUN npm install --save web3@1.2.9
+RUN npm install web3-eth-admin
 COPY contract.sol .
 RUN solc --abi contract.sol|tail -1 > contract.abi
 RUN solc --bin contract.sol|tail -1 > contract.bin

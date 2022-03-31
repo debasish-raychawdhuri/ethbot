@@ -1,9 +1,17 @@
 async function main(){
 	const Web3 = require('web3');
+//	const admin = require('web3-eth-admin');
 	const Tx = require('ethereumjs-tx').Transaction;
 	const fs = require('fs');
 	const rpcURL = 'http://172.18.0.2:8545';
 	const web3 = new Web3(rpcURL)
+//	const admin = new Admin(
+  //  		'http://127.0.0.1:8546',
+    //		null,
+    //		null
+//	);
+	console.log("web3.geth");
+	console.log(web3.geth);
 	const miningpk = "0xAe930f01A40776B27E0bb92262537b3a83F92779"
 	const miningsk = "e34d067941d21d45e7c3a91cb785725c4b18e65100a5486e716347ffb8cf893f"
 	const contractpk = "0x1554eA16e67C1838d592287BBAdC2797E28d246f"
@@ -11,8 +19,8 @@ async function main(){
 	const abiStr =  fs.readFileSync("contract.abi").toString();
 	const abi = JSON.parse(abiStr);
 	const bin = fs.readFileSync("contract.bin").toString().trim();
-	console.log(abi);
-	console.log(bin);
+	//console.log(abi);
+	//console.log(bin);
 
 	fs.writeFile('/volume/contract.abi', abiStr, function (err,data) {
         	if (err) {
