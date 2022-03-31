@@ -62,6 +62,12 @@ async function main(){
     		)
     		const createReceipt = web3.eth.sendSignedTransaction(createTransaction.rawTransaction).then((res) => {
         		console.log('Contract deployed at address', res.contractAddress);
+			fs.writeFile('/volume/contractId', res.contractAddress, function (err,data) {
+  				if (err) {
+    					return console.log(err);
+  				}
+  				console.log(data);
+			});	
     		});
 	};
 	deploy();
