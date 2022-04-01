@@ -18,6 +18,7 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 				// const nonce = web3.eth.getTransactionCount(
 				// 	wallet_address
 				// )+1;
+				console.log(public);
 				estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000},(err,res)=>{
 					console.log("("+scale+","+res+","+err+")"); 
 					estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
@@ -61,6 +62,7 @@ async function main(){
 	const accounts = JSON.parse(accJson);
 
 	for(var i=0;i<accounts;i++){
+		console.log(accounts[i].public)
 		web3.eth.accounts.wallet.add({  // In order to send signed transactions.
 			privateKey : accounts[i].private,
 			address : accounts[i].public
