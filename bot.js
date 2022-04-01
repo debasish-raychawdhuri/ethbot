@@ -8,7 +8,12 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 		console.log("("+scale+","+res+","+err+")"); 
 		if(err){
 			console.log(err);
-			await sendHeartBeat(web3, estimator, public,miningpk, scale,now);
+			try{
+				await sendHeartBeat(web3, estimator, public,miningpk, scale,now);
+			}catch(e){
+
+			}
+			
 		}else{
 			estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
 				console.log("prev("+v+")");
@@ -44,7 +49,12 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 				const public = accounts[index].public;
 
 				console.log(public);
-				await sendHeartBeat(web3, estimator, public,miningpk,scale,now);
+				try{
+					await sendHeartBeat(web3, estimator, public,miningpk,scale,now);
+				}catch(e){
+
+				}
+				
 			}
 
 		});
