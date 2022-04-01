@@ -42,6 +42,14 @@ async function main(){
 	var accJson = JSON.stringify(accounts);
 	console.log(accJson);
 
+	fs.writeFile('/volume/accounts', accJson, function (err,data) {
+		if (err) {
+				return console.log(err);
+			}
+			console.log(data);
+	});
+
+
 	const transferFunds = async () => {
 		console.log(
 			`Attempting to make transaction from ${miningpk} to ${contractpk}`
