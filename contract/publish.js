@@ -32,7 +32,7 @@ async function main(){
 	});
 	//let's create some accounts
 	var accounts = [];
-	for(var i=0;i<500;i++){
+	for(var i=0;i<100;i++){
 		var wallet = await web3.eth.accounts.create();
 		accounts.push({
 			public: wallet.address,
@@ -71,6 +71,26 @@ async function main(){
 		console.log(
 			`Transaction successful with hash: ${createReceipt.transactionHash}`
 		);
+		
+		for(var i=0;i<accounts.length;i++){
+			const createTransaction = await web3.eth.accounts.signTransaction(
+				{	
+					from: miningpk,
+					to: accounts[i].public,
+					value: web3.utils.toWei('10', 'ether'),
+					gas: '21000',
+				
+				},
+				miningsk
+			);
+			const createReceipt = await web3.eth.sendSignedTransaction(
+				createTransaction.rawTransaction
+			);
+			console.log(
+				`Transaction successful with hash: ${createReceipt.transactionHash}`
+			);
+		}
+
 	};
 	await transferFunds();
 
