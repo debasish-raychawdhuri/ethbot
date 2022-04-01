@@ -50,6 +50,7 @@ async function main(){
 
 		
 	const estimator = new web3.eth.Contract(abi,contractId);
+	allLoop(estimator,miningpk,9)();
 	setInterval(allLoop(estimator,miningpk,9),300000);
 
 	// estimate scale
