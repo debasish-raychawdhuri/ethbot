@@ -60,8 +60,8 @@ async function main(){
 
 	const accJson = fs.readFileSync('/volume/accounts').toString();
 	const accounts = JSON.parse(accJson);
-	console.log(accounts);
-	for(var i=0;i<accounts.length();i++){
+	console.log(accounts.length());
+	for(let i=0;i<accounts.length();i++){
 		console.log(accounts[i].public)
 		web3.eth.accounts.wallet.add({  // In order to send signed transactions.
 			privateKey : accounts[i].private,
