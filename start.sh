@@ -1,5 +1,12 @@
 #!/bin/bash
 docker build --tag project .
 echo y| docker container prune
-docker run -p 30304:30304 -p 30304:30304/udp --net projnet -v project:/volume --name proj project
+
+
+for num in $(seq 1 $1)
+do
+	echo $num
+	docker run --net projnet -v project:/volume --name "proj$num" project > /dev/null 2>/dev/null  &
+	sleep 30
+done
 
