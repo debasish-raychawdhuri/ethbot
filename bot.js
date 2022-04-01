@@ -11,7 +11,7 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 			try{
 				await sendHeartBeat(web3, estimator, public,miningpk, scale,now);
 			}catch(e){
-
+				console.error(e)
 			}
 			
 		}else{
@@ -52,7 +52,7 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 				try{
 					await sendHeartBeat(web3, estimator, public,miningpk,scale,now);
 				}catch(e){
-
+					console.error(e)
 				}
 				
 			}
