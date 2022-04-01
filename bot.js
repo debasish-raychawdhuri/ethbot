@@ -1,4 +1,4 @@
-const sendHeartBeat = aysnc (web3, estimator, public,miningpk, scale,now) => {
+const sendHeartBeat = async (web3, estimator, public,miningpk, scale,now) => {
 	console.log("inside sendHeartBeat");
 	var nonce = await web3.eth.getTransactionCount(
 		public
