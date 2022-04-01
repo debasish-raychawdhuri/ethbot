@@ -37,10 +37,18 @@ contract Estimator {
         uint32 prev_timeslot = timeslot - 1;
         uint256 i = 0;
         uint64 sum = 0;
+
         for (i = 0; i < beats[prev_timeslot].length; i++) {
-            sum += beats[prev_timeslot][i].scale;
+            if (beats[prev_timeslot][i].timestamp >= timestamp) {
+                sum += beats[prev_timeslot][i].scale;
+            }
+        }
+
+        for (i = 0; i < beats[timeslot].length; i++) {
+            if (beats[timeslot][i].timestamp < timestamp) {
+                sum += beats[timeslot][i].scale;
+            }
         }
         return sum;
     }
 }
-
