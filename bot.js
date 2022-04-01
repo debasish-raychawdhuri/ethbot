@@ -4,6 +4,9 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 		console.log(now);
 		console.log(miningpk);
 		estimator.methods.estimate(now).call({from:miningpk,gas:10000000},(err,estimate)=>{
+			if(err){
+				console.log(err);
+			}
 			console.log(estimate)   // In this case  state is not changing.
 			
 			var scale = Math.floor(estimate/num_tran);
