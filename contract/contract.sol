@@ -36,18 +36,18 @@ contract Estimator {
     }
 
     function heartBeat(uint64 scale, uint64 timestamp) public {
-        uint32 timeslot = (uint32)(timestamp / 60000);
+        uint32 timeslot = (uint32)(timestamp / 300000);
         beats[timeslot].push(HeartBeat(scale, timestamp));
     }
 
     function estimate(uint64 timestamp) public view returns (uint64) {
-        uint32 timeslot = (uint32)(timestamp / 60000);
+        uint32 timeslot = (uint32)(timestamp / 300000);
         uint32 prev_timeslot = timeslot - 1;
         uint256 i = 0;
         uint64 sum = 0;
 
         for (i = 0; i < beats[prev_timeslot].length; i++) {
-            if (beats[prev_timeslot][i].timestamp >= timestamp - 60000) {
+            if (beats[prev_timeslot][i].timestamp >= timestamp - 300000) {
                 sum += beats[prev_timeslot][i].scale;
             }
         }
