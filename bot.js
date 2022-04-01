@@ -4,7 +4,7 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 		public
 	);
 	console.log("nonce = "+nonce);
-	estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000, nonce:nonce},(err,res)=>{
+	estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000, nonce:nonce},async (err,res)=>{
 		console.log("("+scale+","+res+","+err+")"); 
 		if(err){
 			console.log(err);
