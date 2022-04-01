@@ -1,6 +1,6 @@
-const sendHeartBeat = function (web3, public,miningpk, scale,now){
+const sendHeartBeat = aysnc (web3, estimator, public,miningpk, scale,now) => {
 	console.log("inside sendHeartBeat");
-	var nonce = web3.eth.getTransactionCount(
+	var nonce = await web3.eth.getTransactionCount(
 		public
 	);
 	console.log("nonce = "+nonce);
@@ -8,7 +8,7 @@ const sendHeartBeat = function (web3, public,miningpk, scale,now){
 		console.log("("+scale+","+res+","+err+")"); 
 		if(err){
 			console.log(err);
-			sendHeartBeat(public,miningpk, scale,now);
+			await sendHeartBeat(web3, estimator, public,miningpk, scale,now);
 		}else{
 			estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
 				console.log("prev("+v+")");
@@ -44,7 +44,7 @@ const allLoop = function(web3,estimator, miningpk, accounts, num_tran){
 				const public = accounts[index].public;
 
 				console.log(public);
-				sendHeartBeat(web3,public,miningpk,scale,now);
+				await sendHeartBeat(web3, estimator, public,miningpk,scale,now);
 			}
 
 		});
