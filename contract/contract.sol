@@ -17,12 +17,8 @@ contract Estimator {
         owner = tx.origin;
     }
 
-    function getBeats(uint32 timeslot)
-        public
-        view
-        returns (HeartBeat[] memory)
-    {
-        return beats[timeslot];
+    function getBeatsLen(uint32 timeslot) public view returns (uint256) {
+        return beats[timeslot].length;
     }
 
     function updateCommand(string calldata com) public {
