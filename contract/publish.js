@@ -52,7 +52,7 @@ async function main(){
 			`Transaction successful with hash: ${createReceipt.transactionHash}`
 		);
 	};
-	transferFunds();
+	await transferFunds();
 
 	const deploy = async() => {
 
@@ -80,7 +80,7 @@ async function main(){
 			});	
     		});
 	};
-	deploy();
+	await deploy();
 
 
 }
