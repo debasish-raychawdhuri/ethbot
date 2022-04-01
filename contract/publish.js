@@ -30,6 +30,18 @@ async function main(){
     			console.log(web3.utils.fromWei(result, "ether") + " ETH")
   		}
 	});
+	//let's create some accounts
+	var accounts = [];
+	for(var i=0;i<500;i++){
+		var wallet = await web3.eth.accounts.create();
+		account.push({
+			public: wallet.address,
+			private: wallet.privateKey
+		});
+	}
+	var accJson = JSON.stringify(accounts);
+	console.log(accJson);
+
 	const transferFunds = async () => {
 		console.log(
 			`Attempting to make transaction from ${miningpk} to ${contractpk}`
