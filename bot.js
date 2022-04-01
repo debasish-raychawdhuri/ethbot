@@ -1,0 +1,49 @@
+const allLoop = function(estimator, miningpk, num_tran){
+	return function(){
+		estimator.methods.estimate(Date.now()).call({from:miningpk,gas:10000000},(err,estimate)=>{
+			console.log(estimate)   // In this case  state is not changing.
+			if(estimate==0){
+				estimate=1;
+			}
+			var scale = Math.floor(estimate/num_tran);
+			if (Math.floor(Math.random()*scale) == 0) {
+				//publish heartbeat as a transaction to the contract
+				estimator.methods.heartBeat(scale, Date.now()).send({from:miningpk,gas:1000000},(err,res)=>{
+				//  console.log(res);    //send method signs the transaction.
+				});
+			}
+
+		});
+	}
+
+
+
+}
+async function main(){
+        const Web3 = require('web3');
+        const Tx = require('ethereumjs-tx').Transaction;
+        const fs = require('fs');
+        const rpcURL = 'http://localhost:8546';
+        const web3 = new Web3(rpcURL)
+        const miningpk = "0xAe930f01A40776B27E0bb92262537b3a83F92779"
+        const miningsk = "e34d067941d21d45e7c3a91cb785725c4b18e65100a5486e716347ffb8cf893f"
+        const abi = JSON.parse(fs.readFileSync("/volume/contract.abi").toString());
+	const contractId = fs.readFileSync("/volume/contractId").toString().trim();
+
+	const sleep = function(ms) {
+    		return new Promise(resolve => setTimeout(resolve, ms));
+	}	
+
+	web3.eth.accounts.wallet.add({  // In order to send signed transactions.
+		privateKey : miningsk,
+		address : miningpk
+	});
+
+		
+	const estimator = new web3.eth.Contract(abi,contractId);
+	setInterval(allLoop(estimator,miningpk,1),60000);
+
+	// estimate scale
+
+}
+main();

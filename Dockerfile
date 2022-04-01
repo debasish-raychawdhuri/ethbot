@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 RUN  apt-get update \
   && apt-get install -y wget \
   && rm -rf /var/lib/apt/lists/*
@@ -12,7 +12,19 @@ RUN chmod +x geth
 RUN mkdir gethdir
 COPY static-nodes.json gethdir/static-nodes.json
 RUN ./geth --networkid 2010 --datadir gethdir init genesis-block.json
+RUN apt-get update \
+  && apt-get install -y software-properties-common npm curl
+RUN npm update -g npm
+RUN npm install -g n
+RUN n latest
+
+RUN npm install ethereumjs-tx
+RUN npm install --save web3@1.2.9
 COPY run_services.sh .
+COPY bot.js .
+
+
+
 CMD sh run_services.sh
 
 
