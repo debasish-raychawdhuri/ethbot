@@ -1,4 +1,4 @@
-const sendHeartBeat = function (public,miningpk, scale,now){
+const sendHeartBeat = function (web3, public,miningpk, scale,now){
 	console.log("inside sendHeartBeat");
 	var nonce = web3.eth.getTransactionCount(
 		public
@@ -21,7 +21,7 @@ const sendHeartBeat = function (public,miningpk, scale,now){
 	});
 }
 
-const allLoop = function(estimator, miningpk, accounts, num_tran){
+const allLoop = function(web3,estimator, miningpk, accounts, num_tran){
 	return function(){
 		var now = Date.now();
 		console.log(now);
@@ -44,7 +44,7 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 				const public = accounts[index].public;
 
 				console.log(public);
-				sendHeartBeat(public,miningpk,scale,now);
+				sendHeartBeat(web3,public,miningpk,scale,now);
 			}
 
 		});
@@ -92,7 +92,7 @@ async function main(){
 		
 	const estimator = new web3.eth.Contract(abi,contractId);
 	//allLoop(estimator,miningpk,accounts,9)();
-	setInterval(allLoop(estimator,miningpk,accounts,9),300000);
+	setInterval(allLoop(web3,estimator,miningpk,accounts,9),300000);
 
 	// estimate scale
 
