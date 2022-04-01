@@ -1,3 +1,26 @@
+const sendHeartBeat = function (public,miningpk, scale,now){
+	console.log("inside sendHeartBeat");
+	var nonce = web3.eth.getTransactionCount(
+		public
+	);
+	console.log("nonce = "+nonce);
+	estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000, nonce:nonce},(err,res)=>{
+		console.log("("+scale+","+res+","+err+")"); 
+		if(err){
+			console.log(err);
+			sendHeartBeat(public,miningpk, scale,now);
+		}else{
+			estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
+				console.log("prev("+v+")");
+			});
+			estimator.methods.getBeats(Math.floor(now/300000)).call({from:miningpk,gas:10000000}, (err,v) => {
+				console.log("now("+v+")");
+			});
+		}
+		
+	});
+}
+
 const allLoop = function(estimator, miningpk, accounts, num_tran){
 	return function(){
 		var now = Date.now();
@@ -31,28 +54,7 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 
 }
 
-const sendHeartBeat = function (public,miningpk, scale,now){
-	console.log("inside sendHeartBeat");
-	var nonce = web3.eth.getTransactionCount(
-		public
-	);
-	console.log("nonce = "+nonce);
-	estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000, nonce:nonce},(err,res)=>{
-		console.log("("+scale+","+res+","+err+")"); 
-		if(err){
-			console.log(err);
-			sendHeartBeat(public,miningpk, scale,now);
-		}else{
-			estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
-				console.log("prev("+v+")");
-			});
-			estimator.methods.getBeats(Math.floor(now/300000)).call({from:miningpk,gas:10000000}, (err,v) => {
-				console.log("now("+v+")");
-			});
-		}
-		
-	});
-}
+
 async function main(){
         const Web3 = require('web3');
         const Tx = require('ethereumjs-tx').Transaction;
