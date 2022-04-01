@@ -13,10 +13,10 @@ const allLoop = function(estimator, miningpk, num_tran){
 				//publish heartbeat as a transaction to the contract
 				estimator.methods.heartBeat(scale, now).send({from:miningpk,gas:1000000},(err,res)=>{
 					console.log("("+scale+","+res+","+err+")"); 
-					estimator.methods.getBeats(Math.floor(now/60000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
+					estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
 						console.log("prev("+v+")");
 					});
-					estimator.methods.getBeats(Math.floor(now/60000)).call({from:miningpk,gas:10000000}, (err,v) => {
+					estimator.methods.getBeats(Math.floor(now/300000)).call({from:miningpk,gas:10000000}, (err,v) => {
 						console.log("now("+v+")");
 					});
 				});
