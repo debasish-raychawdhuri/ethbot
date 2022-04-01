@@ -13,7 +13,10 @@ const allLoop = function(estimator, miningpk, num_tran){
 				estimator.methods.heartBeat(scale, now).send({from:miningpk,gas:1000000},(err,res)=>{
 					console.log("("+res+","+err+")"); 
 					estimator.methods.getBeats(Math.floor(now/60000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
-						console.log("("+v+")");
+						console.log("prev("+v+")");
+					});
+					estimator.methods.getBeats(Math.floor(now/60000)).call({from:miningpk,gas:10000000}, (err,v) => {
+						console.log("now("+v+")");
 					});
 				});
 			}
