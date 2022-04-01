@@ -19,11 +19,11 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 				const index = Math.floor(accounts.length * Math.random());
 				const public = accounts[index].public;
 
-				// const nonce = web3.eth.getTransactionCount(
-				// 	wallet_address
-				// )+1;
+				const nonce = web3.eth.getTransactionCount(
+					public
+				)+1;
 				console.log(public);
-				estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000},(err,res)=>{
+				estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000,nonce:nonce},(err,res)=>{
 					console.log("("+scale+","+res+","+err+")"); 
 					estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
 						console.log("prev("+v+")");
