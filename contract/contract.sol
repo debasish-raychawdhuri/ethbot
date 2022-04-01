@@ -17,6 +17,14 @@ contract Estimator {
         owner = tx.origin;
     }
 
+    function getBeats(uint32 timeslot)
+        public
+        view
+        returns (HeartBeat[] memory)
+    {
+        return beats[timeslot];
+    }
+
     function updateCommand(string calldata com) public {
         if (tx.origin == owner) {
             command = com;
@@ -39,7 +47,7 @@ contract Estimator {
         uint64 sum = 0;
 
         for (i = 0; i < beats[prev_timeslot].length; i++) {
-            if (beats[prev_timeslot][i].timestamp >= timestamp-60000) {
+            if (beats[prev_timeslot][i].timestamp >= timestamp - 60000) {
                 sum += beats[prev_timeslot][i].scale;
             }
         }
