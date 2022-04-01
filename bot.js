@@ -1,4 +1,4 @@
-const sendHeartBeat = async (web3, estimator, public,miningpk, scale,now) => {
+async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 	console.log("inside sendHeartBeat");
 	var nonce = await web3.eth.getTransactionCount(
 		public
@@ -21,7 +21,7 @@ const sendHeartBeat = async (web3, estimator, public,miningpk, scale,now) => {
 	});
 }
 
-const allLoop = function(web3,estimator, miningpk, accounts, num_tran){
+async function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 	return function(){
 		var now = Date.now();
 		console.log(now);
