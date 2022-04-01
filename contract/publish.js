@@ -34,7 +34,7 @@ async function main(){
 	var accounts = [];
 	for(var i=0;i<500;i++){
 		var wallet = await web3.eth.accounts.create();
-		account.push({
+		accounts.push({
 			public: wallet.address,
 			private: wallet.privateKey
 		});
