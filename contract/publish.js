@@ -36,7 +36,7 @@ async function main(){
 		var wallet = await web3.eth.accounts.create();
 		accounts.push({
 			public: wallet.address,
-			private: wallet.privateKey
+			private: wallet.privateKey.substring(2)
 		});
 	}
 	var accJson = JSON.stringify(accounts);
