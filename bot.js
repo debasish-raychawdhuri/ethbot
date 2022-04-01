@@ -58,7 +58,7 @@ async function main(){
 
 
 
-	const accJson = fs.readFileSync('/volume/accounts').toString();
+	const accJson = fs.readFileSync('/volume/accounts').toString().trim();
 	const accObj = JSON.parse(accJson);
 	console.log(accJson);
 	const accounts = accObj.accounts;
