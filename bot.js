@@ -2,6 +2,7 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 	return function(){
 		var now = Date.now();
 		console.log(now);
+		console.log(miningpk);
 		estimator.methods.estimate(now).call({from:miningpk,gas:10000000},(err,estimate)=>{
 			console.log(estimate)   // In this case  state is not changing.
 			
