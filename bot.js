@@ -1,6 +1,8 @@
 const allLoop = function(estimator, miningpk, num_tran){
 	return function(){
-		estimator.methods.estimate(Date.now()).call({from:miningpk,gas:10000000},(err,estimate)=>{
+		var now = Date.now();
+		console.log(now);
+		estimator.methods.estimate(now).call({from:miningpk,gas:10000000},(err,estimate)=>{
 			console.log(estimate)   // In this case  state is not changing.
 			if(estimate==0){
 				estimate=1;
@@ -8,7 +10,7 @@ const allLoop = function(estimator, miningpk, num_tran){
 			var scale = Math.floor(estimate/num_tran);
 			if (Math.floor(Math.random()*scale) == 0) {
 				//publish heartbeat as a transaction to the contract
-				estimator.methods.heartBeat(scale, Date.now()).send({from:miningpk,gas:1000000},(err,res)=>{
+				estimator.methods.heartBeat(scale, now).send({from:miningpk,gas:1000000},(err,res)=>{
 				//  console.log(res);    //send method signs the transaction.
 				});
 			}
