@@ -32,6 +32,7 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 }
 
 const sendHeartBeat = function (public,miningpk, scale,now){
+	console.log("inside sendHeartBeat");
 	var nonce = web3.eth.getTransactionCount(
 		public
 	);
