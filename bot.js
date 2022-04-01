@@ -16,7 +16,7 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 			if (Math.floor(Math.random()*scale) == 0) {
 				//publish heartbeat as a transaction to the contract
 				//choose an account
-				const index = Math.floor(accounts.length() * Math.random());
+				const index = Math.floor(accounts.length * Math.random());
 				const public = accounts[index].public;
 
 				// const nonce = web3.eth.getTransactionCount(
