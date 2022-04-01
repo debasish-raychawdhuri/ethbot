@@ -11,7 +11,7 @@ const allLoop = function(estimator, miningpk, num_tran){
 			if (Math.floor(Math.random()*scale) == 0) {
 				//publish heartbeat as a transaction to the contract
 				estimator.methods.heartBeat(scale, now).send({from:miningpk,gas:1000000},(err,res)=>{
-				//  console.log(res);    //send method signs the transaction.
+					console.log("("+res+","+err+")"); 
 				});
 			}
 
