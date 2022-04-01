@@ -21,8 +21,8 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 	});
 }
 
-async function allLoop (web3,estimator, miningpk, accounts, num_tran) {
-	return function(){
+function allLoop (web3,estimator, miningpk, accounts, num_tran) {
+	return async function(){
 		var now = Date.now();
 		console.log(now);
 		console.log(miningpk);
