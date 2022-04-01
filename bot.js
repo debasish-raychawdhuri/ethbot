@@ -57,7 +57,7 @@ async function main(){
 
 
 
-	const accJson = fs.readFileSync("/volume/contractId").toString();
+	const accJson = fs.readFileSync('/volume/accounts').toString();
 	const accounts = JSON.parse(accJson);
 
 	for(var i=0;i<accounts;i++){
