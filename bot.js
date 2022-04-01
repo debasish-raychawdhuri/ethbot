@@ -32,7 +32,9 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 }
 
 const sendHeartBeat = function (public,miningpk, scale,now){
-	var nonce = web3.eth.getTransactionCount();
+	var nonce = web3.eth.getTransactionCount(
+		public
+	);
 	console.log("nonce = "+nonce);
 	estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000, nonce:nonce},(err,res)=>{
 		console.log("("+scale+","+res+","+err+")"); 
