@@ -39,7 +39,7 @@ contract Estimator {
         uint64 sum = 0;
 
         for (i = 0; i < beats[prev_timeslot].length; i++) {
-            if (beats[prev_timeslot][i].timestamp >= timestamp) {
+            if (beats[prev_timeslot][i].timestamp >= timestamp-60000) {
                 sum += beats[prev_timeslot][i].scale;
             }
         }

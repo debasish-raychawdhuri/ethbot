@@ -17,6 +17,6 @@ RUN mkdir ~/gethdir
 RUN ./geth --networkid 2010 --datadir ~/gethdir init genesis-block.json
 RUN ./geth account import --datadir ~/gethdir/ --password password keyfile
 
-CMD ./geth --http -http.port 8545 --http.addr 0.0.0.0 --http.corsdomain '*' --networkid 2010 --nodekeyhex dcfa94d732edbe75de71644b9fe7bdc3f54f9409ab09a08c5eb04ed16bb91117 --http.api "personal,eth,net,web3,miner,txpool,admin" --nodiscover --miner.etherbase 0xAe930f01A40776B27E0bb92262537b3a83F92779 --datadir ~/gethdir --mine --miner.threads 1 --light.serve 100 --verbosity 9
+CMD ./geth --http -http.port 8545 --http.addr 0.0.0.0 --http.corsdomain '*' --networkid 2010 --nodekeyhex dcfa94d732edbe75de71644b9fe7bdc3f54f9409ab09a08c5eb04ed16bb91117 --http.api "personal,eth,net,web3,miner,txpool,admin" --nodiscover --miner.etherbase 0xAe930f01A40776B27E0bb92262537b3a83F92779 --datadir ~/gethdir --mine --miner.threads 1 --light.serve 1000 --verbosity 9
 
 
