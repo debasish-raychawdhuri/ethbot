@@ -1,4 +1,4 @@
-const allLoop = function(estimator, miningpk, num_tran){
+const allLoop = function(estimator, miningpk, accounts, num_tran){
 	return function(){
 		var now = Date.now();
 		console.log(now);
@@ -11,7 +11,14 @@ const allLoop = function(estimator, miningpk, num_tran){
 			}
 			if (Math.floor(Math.random()*scale) == 0) {
 				//publish heartbeat as a transaction to the contract
-				estimator.methods.heartBeat(scale, now).send({from:miningpk,gas:1000000},(err,res)=>{
+				//choose an account
+				const index = Math.floor(accounts.length() * Math.random());
+				const public = accounts[index].public;
+
+				// const nonce = web3.eth.getTransactionCount(
+				// 	wallet_address
+				// )+1;
+				estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000},(err,res)=>{
 					console.log("("+scale+","+res+","+err+")"); 
 					estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
 						console.log("prev("+v+")");
@@ -48,10 +55,21 @@ async function main(){
 		address : miningpk
 	});
 
+
+
+	const accJson = fs.readFileSync("/volume/contractId").toString();
+	const accounts = JSON.parse(accJson);
+
+	for(var i=0;i<accounts;i++){
+		web3.eth.accounts.wallet.add({  // In order to send signed transactions.
+			privateKey : accounts[i].private,
+			address : accounts[i].public
+		});
+	}
 		
 	const estimator = new web3.eth.Contract(abi,contractId);
 	allLoop(estimator,miningpk,9)();
-	setInterval(allLoop(estimator,miningpk,9),300000);
+	setInterval(allLoop(estimator,miningpk,accounts,9),300000);
 
 	// estimate scale
 
