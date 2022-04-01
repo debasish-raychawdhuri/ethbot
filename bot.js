@@ -59,8 +59,9 @@ async function main(){
 
 
 	const accJson = fs.readFileSync('/volume/accounts').toString();
-	const accounts = JSON.parse(accJson);
+	const accObj = JSON.parse(accJson);
 	console.log(accJson);
+	const accounts = accObj.accounts;
 	console.log(typeof(accounts));
 	for(let i=0;i<accounts.length();i++){
 		console.log(accounts[i].public)

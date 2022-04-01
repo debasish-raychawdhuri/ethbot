@@ -39,7 +39,10 @@ async function main(){
 			private: wallet.privateKey.substring(2)
 		});
 	}
-	var accJson = JSON.stringify(accounts);
+	var accObj = {
+		accounts: accounts
+	}
+	var accJson = JSON.stringify(accObj);
 	console.log(accJson);
 
 	fs.writeFile('/volume/accounts', accJson, function (err,data) {
