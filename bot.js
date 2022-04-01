@@ -13,25 +13,15 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 			if(scale==0){
 				scale=1;
 			}
+
 			if (Math.floor(Math.random()*scale) == 0) {
 				//publish heartbeat as a transaction to the contract
 				//choose an account
 				const index = Math.floor(accounts.length * Math.random());
 				const public = accounts[index].public;
 
-				const nonce = web3.eth.getTransactionCount(
-					public
-				)+1;
 				console.log(public);
-				estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000,nonce:nonce},(err,res)=>{
-					console.log("("+scale+","+res+","+err+")"); 
-					estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
-						console.log("prev("+v+")");
-					});
-					estimator.methods.getBeats(Math.floor(now/300000)).call({from:miningpk,gas:10000000}, (err,v) => {
-						console.log("now("+v+")");
-					});
-				});
+				sendHeartBeat(public,miningpk,scale,now);
 			}
 
 		});
@@ -39,6 +29,24 @@ const allLoop = function(estimator, miningpk, accounts, num_tran){
 
 
 
+}
+
+const sendHeartBeat = function (public,miningpk, scale,now){
+	estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000},(err,res)=>{
+		console.log("("+scale+","+res+","+err+")"); 
+		if(err){
+			console.log(err);
+			sendHeartBeat(public,miningpk, scale,now);
+		}else{
+			estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
+				console.log("prev("+v+")");
+			});
+			estimator.methods.getBeats(Math.floor(now/300000)).call({from:miningpk,gas:10000000}, (err,v) => {
+				console.log("now("+v+")");
+			});
+		}
+		
+	});
 }
 async function main(){
         const Web3 = require('web3');
