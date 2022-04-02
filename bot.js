@@ -1,5 +1,5 @@
 async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
-	console.log("inside sendHeartBeat");
+	//console.log("inside sendHeartBeat");
 	var nonce = await web3.eth.getTransactionCount(
 		public
 	);
