@@ -3,11 +3,11 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 	var nonce = await web3.eth.getTransactionCount(
 		public
 	);
-	console.log("nonce = "+nonce);
+	//console.log("nonce = "+nonce);
 	estimator.methods.heartBeat(scale, now).send({from:public,gas:1000000, nonce:nonce},async (err,res)=>{
-		console.log("("+scale+","+res+","+err+")"); 
+		//console.log("("+scale+","+res+","+err+")"); 
 		if(err){
-			console.log(err);
+			console.error(err);
 			try{
 				await sendHeartBeat(web3, estimator, public,miningpk, scale,now);
 			}catch(e){
@@ -15,12 +15,12 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 			}
 			
 		}else{
-			estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
-				console.log("prev("+v+")");
-			});
-			estimator.methods.getBeats(Math.floor(now/300000)).call({from:miningpk,gas:10000000}, (err,v) => {
-				console.log("now("+v+")");
-			});
+			// estimator.methods.getBeats(Math.floor(now/300000-1)).call({from:miningpk,gas:10000000}, (err,v) => {
+			// 	console.log("prev("+v+")");
+			// });
+			// estimator.methods.getBeats(Math.floor(now/300000)).call({from:miningpk,gas:10000000}, (err,v) => {
+			// 	console.log("now("+v+")");
+			// });
 		}
 		
 	});
@@ -29,11 +29,11 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 	return async function(){
 		var now = Date.now();
-		console.log(now);
-		console.log(miningpk);
+		//console.log(now);
+		//console.log(miningpk);
 		estimator.methods.estimate(now).call({from:miningpk,gas:10000000},async (err,estimate)=>{
 			if(err){
-				console.log(err);
+				console.error(err);
 			}
 			console.log(estimate)   // In this case  state is not changing.
 			
@@ -48,7 +48,7 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 				const index = Math.floor(accounts.length * Math.random());
 				const public = accounts[index].public;
 
-				console.log(public);
+				//console.log(public);
 				try{
 					await sendHeartBeat(web3, estimator, public,miningpk,scale,now);
 				}catch(e){
@@ -89,11 +89,11 @@ async function main(){
 
 	const accJson = fs.readFileSync('/volume/accounts').toString().trim();
 	const accObj = JSON.parse(accJson);
-	console.log(accJson);
+	//console.log(accJson);
 	const accounts = accObj.accounts;
-	console.log(accounts.length);
+	//console.log(accounts.length);
 	for(let i=0;i<accounts.length;i++){
-		console.log(accounts[i].public)
+		//console.log(accounts[i].public)
 		web3.eth.accounts.wallet.add({  // In order to send signed transactions.
 			privateKey : accounts[i].private,
 			address : accounts[i].public
