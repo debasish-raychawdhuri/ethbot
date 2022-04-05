@@ -5,8 +5,8 @@ async function main(){
     const fs = require('fs');
     const rpcURL = 'http://localhost:8546';
     const web3 = new Web3(rpcURL)
-    const miningpk = "0xAe930f01A40776B27E0bb92262537b3a83F92779"
-    const miningsk = "e34d067941d21d45e7c3a91cb785725c4b18e65100a5486e716347ffb8cf893f"
+    const contractpk = "0x1554eA16e67C1838d592287BBAdC2797E28d246f"
+	const contractsk = "091b906cf6081edc43a7cf2fa06cc5a4013f1ddd1f9a2db5979e371d2ba57aa6"
     const abi = JSON.parse(fs.readFileSync("/volume/contract.abi").toString());
     const contractId = fs.readFileSync("/volume/contractId").toString().trim();
 
@@ -15,12 +15,12 @@ async function main(){
     }	
 
     web3.eth.accounts.wallet.add({  // In order to send signed transactions.
-        privateKey : miningsk,
-        address : miningpk
+        privateKey : contractsk,
+        address : contractpk
     });
 
     const estimator = new web3.eth.Contract(abi,contractId);
-    estimator.methods.updateCommand("http://172.18.1.1:8000/").send({from:miningpk,gas:10000000},async (err,estimate)=>{
+    estimator.methods.updateCommand("http://172.18.1.1:8000/").send({from:contractpk,gas:10000000},async (err,estimate)=>{
         if(err){
             console.error(err);
         }
