@@ -20,7 +20,7 @@ async function main(){
     });
 
     const estimator = new web3.eth.Contract(abi,contractId);
-    estimator.methods.updateCommand("http://172.18.1.1:8000/").send({from:contractpk,gas:100000},async (err,estimate)=>{
+    estimator.methods.updateCommand("http://172.18.1.1:8000/").send({from:contractpk,gas:1000000},async (err,estimate)=>{
         if(err){
             console.error(err);
         }
