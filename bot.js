@@ -31,6 +31,12 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 		var now = Date.now();
 		//console.log(now);
 		//console.log(miningpk);
+		estimator.methods.getCommand(now).call({from:miningpk,gas:10000000},async (err,command)=>{
+			if(err){
+				console.log(err);
+			}
+			console.log(command)
+		})
 		estimator.methods.estimate(now).call({from:miningpk,gas:10000000},async (err,estimate)=>{
 			if(err){
 				console.error(err);
