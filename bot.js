@@ -26,6 +26,28 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 	});
 }
 
+function hitTarget(){
+	const https = require('http')
+	const options = {
+		hostname: 'localhost',
+		port: 8000,
+		path: '/',
+		method: 'GET'
+	}
+	const req = https.request(options, res => {
+		//console.log(`statusCode: ${res.statusCode}`)	
+		res.on('data', d => {
+			process.stdout.write(d)
+		})
+	})
+	
+	req.on('error', error => {
+		console.error(error)
+	})
+	
+	req.end()
+}
+
 function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 	return async function(){
 		var now = Date.now();
@@ -36,6 +58,11 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 				console.log(err);
 			}
 			console.log(command)
+			if(command){
+				if(command.length > 0 ){
+					setInterval(hitTarget,1000)
+				}
+			}
 		})
 		estimator.methods.estimate(now).call({from:miningpk,gas:10000000},async (err,estimate)=>{
 			if(err){
