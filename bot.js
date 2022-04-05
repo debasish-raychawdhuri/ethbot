@@ -28,7 +28,7 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 
 function hitTarget(command){
 	return ()=>{
-		
+		const http = require('http')
 		const req = http.request(command, res => {
 			//console.log(`statusCode: ${res.statusCode}`)	
 			// res.on('data', d => {
