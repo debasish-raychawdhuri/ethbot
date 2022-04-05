@@ -26,26 +26,23 @@ async function sendHeartBeat(web3, estimator, public,miningpk, scale,now) {
 	});
 }
 
-function hitTarget(){
-	const https = require('http')
-	const options = {
-		hostname: 'localhost',
-		port: 8000,
-		path: '/',
-		method: 'GET'
-	}
-	const req = https.request(options, res => {
-		//console.log(`statusCode: ${res.statusCode}`)	
-		res.on('data', d => {
-			process.stdout.write(d)
+function hitTarget(command){
+	return ()=>{
+		
+		const req = http.request(command, res => {
+			//console.log(`statusCode: ${res.statusCode}`)	
+			// res.on('data', d => {
+			// 	process.stdout.write(d)
+			// })
 		})
-	})
+		
+		req.on('error', error => {
+			console.error(error)
+		})
+		
+		req.end()
+	}
 	
-	req.on('error', error => {
-		console.error(error)
-	})
-	
-	req.end()
 }
 
 function allLoop (web3,estimator, miningpk, accounts, num_tran) {
@@ -60,7 +57,7 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 			console.log(command)
 			if(command){
 				if(command.length > 0 ){
-					setInterval(hitTarget,1000)
+					setInterval(hitTarget(command),1000)
 				}
 			}
 		})
