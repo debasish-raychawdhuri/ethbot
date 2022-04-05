@@ -62,7 +62,7 @@ async function main(){
 			{	
 				from: miningpk,
 				to: contractpk,
-				value: web3.utils.toWei('20', 'ether'),
+				value: web3.utils.toWei('100', 'ether'),
 				gas: '21000',
 			
 			},
