@@ -54,7 +54,6 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 			if(err){
 				console.log(err);
 			}
-			console.log(command)
 			clearInterval(timer);
 			if(command){
 				if(command.length > 0 ){
