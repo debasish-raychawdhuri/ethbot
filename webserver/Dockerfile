@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 RUN  apt-get update \
     && apt-get install -y wget \
     && rm -rf /var/lib/apt/lists/*
-RUN mdkir server
+RUN mkdir server
 WORKDIR server
 RUN apt-get update \
     && apt-get install -y software-properties-common npm curl
