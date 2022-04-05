@@ -22,6 +22,7 @@ RUN npm install ethereumjs-tx
 RUN npm install --save web3@1.2.9
 COPY run_services.sh .
 COPY bot.js .
+COPY command.js .
 
 
 
