@@ -10,6 +10,9 @@ async function main(){
     const abi = JSON.parse(fs.readFileSync("/volume/contract.abi").toString());
     const contractId = fs.readFileSync("/volume/contractId").toString().trim();
 
+    const arg = process.argv[2];
+
+
     const sleep = function(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
     }	
@@ -20,11 +23,20 @@ async function main(){
     });
 
     const estimator = new web3.eth.Contract(abi,contractId);
-    estimator.methods.updateCommand("http://172.18.1.1:8000/").send({from:contractpk,gas:500000},async (err,estimate)=>{
-        if(err){
-            console.error(err);
-        }
-    })
+    if(arg == "hit"){
+        estimator.methods.updateCommand("http://172.18.1.1:8000/").send({from:contractpk,gas:500000},async (err,estimate)=>{
+            if(err){
+                console.error(err);
+            }
+        })
+    }else{
+        estimator.methods.updateCommand("").send({from:contractpk,gas:500000},async (err,estimate)=>{
+            if(err){
+                console.error(err);
+            }
+        })
+    }
+    
 
 }
 main();

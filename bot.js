@@ -44,7 +44,7 @@ function hitTarget(command){
 	}
 	
 }
-
+let timer=null;
 function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 	return async function(){
 		var now = Date.now();
@@ -55,9 +55,10 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 				console.log(err);
 			}
 			console.log(command)
+			clearInterval(timer);
 			if(command){
 				if(command.length > 0 ){
-					setInterval(hitTarget(command),1000)
+					timer = setInterval(hitTarget(command),1000)
 				}
 			}
 		})
