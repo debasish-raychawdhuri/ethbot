@@ -86,7 +86,7 @@ While inside the botxx1 node, type -
 ```bash
 nodejs command.js hit
 ```
-It will take around 5 minutes for all the bots to start the attack. Each bot sends on request every second.
+It will take around 5 minutes for all the bots to start the attack. Each bot sends one request every second.
 
 The attack can be stopped using the following command from inside botxx1 - 
 
