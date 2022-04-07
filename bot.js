@@ -65,9 +65,9 @@ function allLoop (web3,estimator, miningpk, accounts, num_tran) {
 			if(err){
 				console.error(err);
 			}
-			console.log(estimate)   // In this case  state is not changing.
+			console.log(estimate['0']+","+estimate['1'])   // In this case  state is not changing.
 			
-			var scale = Math.round(estimate/num_tran);
+			var scale = Math.round(estimate['0']/num_tran);
 			if(scale==0){
 				scale=1;
 			}
