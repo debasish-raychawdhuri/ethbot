@@ -64,6 +64,11 @@ To view the estimates for the number of bots, type the following while inside th
 ```bash
 cat output
 ```
+### Collecting estimates
+The estimates can be collected into `outputfile` using 
+```bash
+sh collect.sh > outputfile
+```
 
 ### Running the webserver
 The webserver acts as a dummy target for the attack. To start the webserver, first move to the webserver directory using
